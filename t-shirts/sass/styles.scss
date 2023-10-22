@@ -1,0 +1,177 @@
+$font-family: "Roboto", sans-serif;
+
+$fw-400: 400;
+$fw-700: 700;
+$fw-900: 900;
+
+$fs-400: 1.125rem;
+$fs-500: 1.25rem;
+$fs-700: 2rem;
+$fs-900: 3rem;
+
+$red-400: hsla(357, 100%, 68%, 1);
+$red-600: hsla(357, 74%, 40%);
+$blue-900: hsla(216, 71%, 16%, 1);
+$neutral-100: hsl(0 0% 100%);
+
+$size-8: 0.5rem;
+$size-16: 1rem;
+$size-32: 2rem;
+$size-36: 3rem;
+
+%shadow {
+  box-shadow: 0.25rem 0.25rem 1rem rgb(0 0 0 / 0.15);
+}
+
+@mixin interactive-scale($color, $bg, $scale: 1.05) {
+  scale: 1;
+  transition: scale 350ms ease;
+
+  &:hover,
+  &:focus {
+    color: $color;
+    background-color: $bg;
+    scale: $scale;
+  }
+}
+
+// reset
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  font-family: $font-family;
+  font-size: $fw-400;
+  color: $blue-900;
+
+  // for demo
+  margin: $size-36 0;
+}
+
+.container {
+  width: min(58rem, 100% - 2rem);
+  margin-inline: auto;
+}
+
+.even-columns {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: var(--gap, $size-16);
+}
+
+// Utilities
+
+.margin-block-xl {
+  margin-block: $size-36;
+}
+
+.fw-bold {
+  font-weight: 700;
+}
+.fw-black {
+  font-weight: 900;
+}
+
+.text-center {
+  text-align: center;
+}
+.text-accent {
+  color: $red-400;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.page-title {
+  font-size: $fs-700;
+  font-weight: 900;
+}
+
+.card {
+  $parent: &;
+  border-radius: 2rem;
+  overflow: hidden;
+  background-color: $neutral-100;
+  position: relative;
+  @extend %shadow;
+
+  &[data-type="product"] {
+    h2 {
+      color: $blue-900;
+      font-weight: $fw-900;
+      font-size: $fs-700;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    #{$parent}-content {
+      padding: $size-32 $size-16 $size-16;
+      display: flex;
+      gap: $size-8;
+      align-items: end;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    button {
+      top: 0;
+      right: $size-16;
+      transform: translateY(-50%);
+    }
+
+    .price {
+      font-size: $size-16;
+    }
+  }
+  &[data-type="link-img"] {
+    #{$parent}-content {
+      padding: $size-16 $size-16;
+      color: var(--clr, $red-400);
+
+      &:hover {
+        color: $neutral-100;
+        background-color: $blue-900;
+      }
+    }
+  }
+}
+
+button {
+  border: none;
+  text-decoration: none;
+  background-color: $red-400;
+  border-radius: 100vw;
+  color: $neutral-100;
+  cursor: pointer;
+  display: inline-block;
+  position: absolute;
+  padding: $size-16;
+  @extend %shadow;
+  @include interactive-scale($neutral-100, $red-600);
+}
+
+.merchandise-columns {
+  --gap: 2rem;
+}
