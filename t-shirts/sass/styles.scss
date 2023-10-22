@@ -15,6 +15,7 @@ $blue-900: hsla(216, 71%, 16%, 1);
 $neutral-100: hsl(0 0% 100%);
 
 $size-8: 0.5rem;
+$size-12: 0.75rem;
 $size-16: 1rem;
 $size-32: 2rem;
 $size-36: 3rem;
@@ -105,8 +106,12 @@ body {
 }
 
 .page-title {
-  font-size: $fs-700;
+  font-size: $fs-900;
   font-weight: 900;
+}
+
+.merchandise-columns {
+  --gap: 2rem;
 }
 
 .card {
@@ -142,17 +147,35 @@ body {
     }
 
     .price {
-      font-size: $size-16;
+      font-size: $fs-400;
     }
   }
   &[data-type="link-img"] {
-    #{$parent}-content {
-      padding: $size-16 $size-16;
-      color: var(--clr, $red-400);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 350ms ease;
 
-      &:hover {
-        color: $neutral-100;
+    img {
+      height: 8.75rem;
+      width: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    #{$parent} {
+      &-content {
+        color: $red-600;
+        padding: $size-16 $size-12;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      transform: scale(1.1);
+
+      .card-content {
         background-color: $blue-900;
+        color: $neutral-100;
       }
     }
   }
@@ -170,8 +193,4 @@ button {
   padding: $size-16;
   @extend %shadow;
   @include interactive-scale($neutral-100, $red-600);
-}
-
-.merchandise-columns {
-  --gap: 2rem;
 }
